@@ -10,22 +10,22 @@ print("")
 def main():
 	# this is my header row
 	print ("{0:<25} {1:<15} {2:<10} {3:<10}".format(
-		"location type", "location", "salmax", "salmin"))
+		"Occupation", "Type", "salmax", "salmin"))
 		
 	cursor = conn.execute("""
-			select loc.loctypt, loc.loct, max(f.salary) salmax, min(f.salary) salmin
-			from factdata_mar2016 f, loc
-			where f.loc=loc.loc
-			group by loc.loctypt, loc.loct
+			select occ.occtypt, occ.occt, max(f.salary) salmax, min(f.salary) salmin
+			from factdata_mar2016 f, occ
+			where f.occ=occ.occ
+			group by occ.occtypt, occ.occt
 			order by salmax desc
 			limit 20;
 		""")
 		
 	for row in cursor:
-		location_type, location, salmax, salmin = row
+		Occupation, type, salmax, salmin = row
 		print("{0:<25} {1:<15} {2:<10} {3:<10}".format(
-				location_type,
-				location[0:14],
+				Occupation,
+				type[0:14],
 				salmax,
 				salmin
 				))
